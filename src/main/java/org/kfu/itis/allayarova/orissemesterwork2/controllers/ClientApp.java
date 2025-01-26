@@ -5,8 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.kfu.itis.allayarova.orissemesterwork2.Game;
-import org.kfu.itis.allayarova.orissemesterwork2.client.Client;
 
 
 public class ClientApp extends Application {

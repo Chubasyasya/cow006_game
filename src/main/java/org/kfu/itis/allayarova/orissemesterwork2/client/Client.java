@@ -1,10 +1,9 @@
 package org.kfu.itis.allayarova.orissemesterwork2.client;
 
-import javafx.application.Platform;
-import org.kfu.itis.allayarova.orissemesterwork2.ClientHandler;
-import org.kfu.itis.allayarova.orissemesterwork2.Game;
-import org.kfu.itis.allayarova.orissemesterwork2.controllers.BaseController;
-import org.kfu.itis.allayarova.orissemesterwork2.models.Player;
+import org.kfu.itis.allayarova.orissemesterwork2.service.*;
+import org.kfu.itis.allayarova.orissemesterwork2.service.server.messageListener.EventDispatcher;
+import org.kfu.itis.allayarova.orissemesterwork2.service.server.messageListener.EventListener;
+import org.kfu.itis.allayarova.orissemesterwork2.service.server.messageListener.NetworkEvent;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +17,11 @@ public class Client {
     private Socket socket;
     protected BufferedReader in;
     protected PrintWriter out;
+    private final EventDispatcher dispatcher = new EventDispatcher();
+
+    public void addListener(EventListener listener) {
+        dispatcher.addListener(listener);
+    }
 
 
     public Client(){
@@ -31,21 +35,20 @@ public class Client {
 
     }
 
-    public void listenMessages(Game game) {
+    public void listenMessages(MenuNet menuNet) {
         new Thread(() -> {
-        try {
-            while(true){
-                String message;
-                while ((message = in.readLine()) != null) {
-                    message = message.trim();
-
-                    game.handleMessage(message);
-                    System.out.println("Message received: " + message);
+            addListener(menuNet);
+            try {
+                while(true){
+                    String message;
+                    while ((message = in.readLine()) != null) {
+                       dispatcher.dispatch(new NetworkEvent("response", message));
+                        System.out.println("Message received: " + message);
+                    }
                 }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         }).start();
     }
 

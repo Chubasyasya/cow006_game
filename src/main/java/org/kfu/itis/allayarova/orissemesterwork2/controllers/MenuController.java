@@ -1,6 +1,5 @@
 package org.kfu.itis.allayarova.orissemesterwork2.controllers;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,22 +7,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.kfu.itis.allayarova.orissemesterwork2.Game;
+import org.kfu.itis.allayarova.orissemesterwork2.service.Menu;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MenuController extends BaseController{
-    Game game;
+    Menu menu;
 
     @FXML
     private VBox buttonContainer;
 
     @FXML
     public void initialize() {
-        game = new Game(this);
+        menu = new Menu(this);
     }
 
     public void createButtons(List<Integer> numbers) {
@@ -31,7 +28,7 @@ public class MenuController extends BaseController{
         for (Integer number : numbers) {
             Button button = new Button("Room " + number);
             button.setOnAction(e -> {
-                game.enterInRoom(number);
+                menu.enterInRoom(number);
                 loadRoomScene(number);
             });
             buttonContainer.getChildren().add(button);

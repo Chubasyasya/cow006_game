@@ -1,6 +1,7 @@
 package org.kfu.itis.allayarova.orissemesterwork2;
 
 import org.kfu.itis.allayarova.orissemesterwork2.client.Room;
+import org.kfu.itis.allayarova.orissemesterwork2.service.Commands;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class Server {
             roomList.setLength(roomList.length() - 1);
         }
 
-        out.write("" + roomList + "\n");
+        out.write(Commands.SEND_ROOM_LIST.getCode() +":" + roomList + "\n");
         out.flush();
     }
 

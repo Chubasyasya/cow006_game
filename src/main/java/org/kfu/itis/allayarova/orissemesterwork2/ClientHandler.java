@@ -1,12 +1,14 @@
 package org.kfu.itis.allayarova.orissemesterwork2;
 
 import org.kfu.itis.allayarova.orissemesterwork2.client.Room;
+import org.kfu.itis.allayarova.orissemesterwork2.models.Action;
 import org.kfu.itis.allayarova.orissemesterwork2.models.Player;
+import org.kfu.itis.allayarova.orissemesterwork2.service.CommandConverter;
+import org.kfu.itis.allayarova.orissemesterwork2.service.server.CommandHandler;
+import org.kfu.itis.allayarova.orissemesterwork2.service.server.CommandHandlerFactory;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Map;
-import java.util.Set;
 
 public class ClientHandler implements Runnable{
     private Socket socket;
@@ -38,8 +40,13 @@ public class ClientHandler implements Runnable{
         try (BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()))){
             String message;
             while((message = br.readLine()) != null){
-                String serverMessage = CommandsResolver.executeCommand(message, this);
-                out.write(serverMessage);
+                Action action = CommandConverter.toMessage(message);
+                CommandHandler handler = CommandHandlerFactory.getHandler(action.getCommand());
+                if (handler != null) {
+                    String serverMessage = handler.handle(this);
+
+                    out.write(serverMessage);
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
