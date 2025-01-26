@@ -3,7 +3,11 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.kfu.itis.allayarova.orissemesterwork2.controllers.RoomController">
+<?import javafx.scene.image.ImageView?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.kfu.itis.allayarova.orissemesterwork2.controllers.RoomController"
+            stylesheets="@css/room.css">
    <center>
       <GridPane hgap="5.0" maxHeight="600.0" maxWidth="499.0" minHeight="400.0" minWidth="300.0" prefHeight="439.0" prefWidth="490.0" vgap="5.0" BorderPane.alignment="CENTER">
           <columnConstraints>
@@ -32,7 +36,11 @@
    <top>
       <AnchorPane prefHeight="60.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
    </top>
-   <right>
-      <VBox prefHeight="340.0" prefWidth="291.0" BorderPane.alignment="CENTER" />
-   </right>
+    <right>
+        <VBox fx:id="rightContainer" prefHeight="340.0" prefWidth="291.0" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fx:id="deckImageView" fitHeight="200.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </VBox>
+    </right>
 </BorderPane>

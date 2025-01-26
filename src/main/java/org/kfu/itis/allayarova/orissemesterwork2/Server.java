@@ -1,6 +1,6 @@
 package org.kfu.itis.allayarova.orissemesterwork2;
 
-import org.kfu.itis.allayarova.orissemesterwork2.client.Room;
+import org.kfu.itis.allayarova.orissemesterwork2.models.Room;
 import org.kfu.itis.allayarova.orissemesterwork2.service.Commands;
 
 import java.io.BufferedWriter;
@@ -14,17 +14,19 @@ public class Server {
     private static Map<Integer, Room> rooms = new HashMap<>();
 
     public static void main(String[] args){
-        rooms.put(1, new Room());
-        rooms.put(2, new Room());
+        rooms.put(1, new Room(2, new HashSet<>()));
+        rooms.put(2, new Room(3, new HashSet<>()));
 
         try(ServerSocket serverSocket = new ServerSocket(1234)){
-            Socket socket = serverSocket.accept();
-            System.out.println("New client with ip address: " + socket.getInetAddress());
+            while (true) {
+                Socket socket = serverSocket.accept();
+                System.out.println("New client with ip address: " + socket.getInetAddress());
 
-            sendRoomList(socket);
+                sendRoomList(socket);
 
-            ClientHandler clientHandler = new ClientHandler(socket);
-            new Thread(clientHandler).start();
+                ClientHandler clientHandler = new ClientHandler(socket);
+                new Thread(clientHandler).start();
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

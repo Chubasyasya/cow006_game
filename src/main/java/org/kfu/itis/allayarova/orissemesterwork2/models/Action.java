@@ -9,7 +9,7 @@ public class Action<E>{
     private Commands command;
     private List<E> value;
 
-    public Action(Commands command, ArrayList<E> value) {
+    public Action(Commands command, List<E> value) {
         this.command=command;
         this.value=value;
 

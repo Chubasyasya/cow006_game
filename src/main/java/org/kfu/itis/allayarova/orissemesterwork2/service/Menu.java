@@ -29,8 +29,21 @@ public class Menu {
     }
 
     public void enterInRoom(Integer roomId) {
-        menuNet.send(new Action(Commands.ENTER_IN_ROOM, new ArrayList<Integer>(roomId)));
+        List<Integer> chosenRoom = new ArrayList<>();
+        chosenRoom.add(roomId);
+        menuNet.send(new Action<Integer>(Commands.ENTER_IN_ROOM, chosenRoom));
     }
 
 
+    public void enterInRoomResponse(int roomId, int roomIsFilled) {
+        boolean beginGame = roomIsFilled>0;
+        if(roomId>0) {
+            Platform.runLater(() -> {
+                if (controller != null) {
+                    controller.loadRoomScene(roomId);
+                }
+            });
+        }
+
+    }
 }

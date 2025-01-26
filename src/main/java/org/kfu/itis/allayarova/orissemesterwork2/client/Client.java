@@ -23,36 +23,47 @@ public class Client {
         dispatcher.addListener(listener);
     }
 
-
-    public Client(){
+    public Client() {
         try {
             socket = new Socket(HOST, PORT);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to connect to server: " + e.getMessage(), e);
         }
-
     }
 
     public void listenMessages(MenuNet menuNet) {
         new Thread(() -> {
             addListener(menuNet);
             try {
-                while(true){
-                    String message;
-                    while ((message = in.readLine()) != null) {
-                       dispatcher.dispatch(new NetworkEvent("response", message));
-                        System.out.println("Message received: " + message);
-                    }
+                String message;
+                while ((message = in.readLine()) != null) {
+                    dispatcher.dispatch(new NetworkEvent("response", message));
+                    System.out.println("Message received: " + message);
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.err.println("Error while reading messages: " + e.getMessage());
+            } finally {
+                closeResources();
             }
         }).start();
     }
 
-    public void sendMessage(String message){
-        out.println(message);
+    public void sendMessage(String message) {
+        synchronized (out) {
+            out.println(message);
+            out.flush();
+        }
+    }
+
+    private void closeResources() {
+        try {
+            if (in != null) in.close();
+            if (out != null) out.close();
+            if (socket != null) socket.close();
+        } catch (IOException e) {
+            System.err.println("Failed to close resources: " + e.getMessage());
+        }
     }
 }

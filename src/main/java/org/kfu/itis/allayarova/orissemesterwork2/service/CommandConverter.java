@@ -8,8 +8,10 @@ import java.util.stream.Collectors;
 
 public class CommandConverter {
     public static String toString(Action action){
-        String string = action.getCommand()+":"+action.getValue();
-        return string;
+        String valueString = (action.getValue() != null)
+                ? (String) action.getValue().stream().map(Object::toString).collect(Collectors.joining(" "))
+                : "";
+        return action.getCommand().getCode() + ":" + valueString;
     }
 
     public static Action toMessage(String string){

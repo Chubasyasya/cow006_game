@@ -1,0 +1,6 @@
+.root {
+    -fx-background-image: url("/org/kfu/itis/allayarova/orissemesterwork2/images/background.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: cover;
+}

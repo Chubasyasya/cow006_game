@@ -29,13 +29,12 @@ public class MenuController extends BaseController{
             Button button = new Button("Room " + number);
             button.setOnAction(e -> {
                 menu.enterInRoom(number);
-                loadRoomScene(number);
             });
             buttonContainer.getChildren().add(button);
         }
     }
 
-    private void loadRoomScene(int roomNumber) {
+    public void loadRoomScene(int roomNumber) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/kfu/itis/allayarova/orissemesterwork2/roomScene.fxml"));
             Parent root = loader.load();

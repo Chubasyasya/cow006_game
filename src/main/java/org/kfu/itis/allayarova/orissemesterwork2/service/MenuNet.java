@@ -35,7 +35,7 @@ public class MenuNet implements EventListener {
         System.out.println("Событие обработано: " + event.getData());
         Action action = CommandConverter.toMessage(event.getData());
         if(action.getCommand().getCode()==Commands.ENTER_IN_ROOM.getCode()){
-            menu.enterInRoom((Integer) action.getValue().getFirst());
+            menu.enterInRoomResponse(Integer.parseInt((String) action.getValue().getFirst()), Integer.parseInt((String) action.getValue().get(1)));
         } else if (action.getCommand().getCode()==Commands.SEND_ROOM_LIST.getCode()) {
             menu.createButtons(((List<String>) action.getValue())
                     .stream()

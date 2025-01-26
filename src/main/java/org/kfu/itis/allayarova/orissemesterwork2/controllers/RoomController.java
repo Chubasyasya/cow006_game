@@ -4,8 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import org.kfu.itis.allayarova.orissemesterwork2.service.Game;
 
 public class RoomController {
+    private Game game;
+
     @FXML
     private VBox rightContainer;
 
@@ -15,7 +18,8 @@ public class RoomController {
     
     @FXML
     public void initialize(){
-        Image deckImage = new Image(getClass().getResource("/org/kfu/itis/allayarova/orissemesterwork2/images/card_back2.jpg").toExternalForm());
+        game = new Game(this);
+        Image deckImage = new Image(getClass().getResource("/org/kfu/itis/allayarova/orissemesterwork2/images/card_back2.png").toExternalForm());
         deckImageView.setImage(deckImage);
 
         checkDeckStatus();
