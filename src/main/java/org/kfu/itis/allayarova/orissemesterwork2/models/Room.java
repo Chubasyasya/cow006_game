@@ -9,10 +9,12 @@ import java.util.Set;
 public class Room {
     int size;
     Set<ClientHandler> clients;
+    GameState gameState;
 
     public Room(int size, Set<ClientHandler> clients) {
         this.size = size;
         this.clients = clients;
+        gameState = new GameState();
     }
 
     public Room() {
@@ -37,5 +39,9 @@ public class Room {
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public GameState getGameState() {
+        return gameState;
     }
 }

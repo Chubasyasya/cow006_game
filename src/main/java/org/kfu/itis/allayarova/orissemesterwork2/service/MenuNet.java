@@ -8,8 +8,8 @@ import org.kfu.itis.allayarova.orissemesterwork2.service.server.messageListener.
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MenuNet implements EventListener {
-    private Client client;
+public class MenuNet implements EventListener{
+    protected Client client;
     private Menu menu;
 
 
@@ -42,5 +42,9 @@ public class MenuNet implements EventListener {
                     .map(Integer::parseInt)
                     .collect(Collectors.toList()));
         }
+    }
+
+    public Client getClient() {
+        return client;
     }
 }

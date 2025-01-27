@@ -10,6 +10,8 @@ public class CommandHandlerFactory {
 
     static {
         commandHandlers.put(Commands.ENTER_IN_ROOM, new EnterInRoomHandler());
+        commandHandlers.put(Commands.START_GAME, new StartGameHandler());
+        commandHandlers.put(Commands.GET_CARDS, new GetCardsHandler());
     }
 
     public static CommandHandler getHandler(Commands command) {

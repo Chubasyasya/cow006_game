@@ -3,7 +3,9 @@ package org.kfu.itis.allayarova.orissemesterwork2.service;
 public enum Commands {
     INIT_MENU(0),
     ENTER_IN_ROOM(1),
-    SEND_ROOM_LIST( 2);
+    SEND_ROOM_LIST( 2),
+    START_GAME(3),
+    GET_CARDS(4);
 
     private final int code;
 

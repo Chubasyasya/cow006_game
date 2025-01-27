@@ -4,7 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import org.kfu.itis.allayarova.orissemesterwork2.models.Card;
 import org.kfu.itis.allayarova.orissemesterwork2.service.Game;
+
+import java.util.List;
 
 public class RoomController {
     private Game game;
@@ -18,7 +21,6 @@ public class RoomController {
     
     @FXML
     public void initialize(){
-        game = new Game(this);
         Image deckImage = new Image(getClass().getResource("/org/kfu/itis/allayarova/orissemesterwork2/images/card_back2.png").toExternalForm());
         deckImageView.setImage(deckImage);
 
@@ -39,5 +41,16 @@ public class RoomController {
     }
 
     public void setRoomNumber(int roomNumber) {
+    }
+
+    public void startGame(){
+
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public void getCards(List<Card> cards) {
     }
 }

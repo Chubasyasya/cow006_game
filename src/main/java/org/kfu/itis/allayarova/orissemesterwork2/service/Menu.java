@@ -9,21 +9,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Menu {
-    private MenuController controller;
+public class Menu{
+    private MenuController menuController;
     private MenuNet menuNet;
 
     public Menu(BaseController controller) {
         menuNet = new MenuNet(this);
 
-        this.controller = (MenuController) controller;
+        this.menuController = (MenuController) controller;
     }
 
     public void createButtons(List<Integer> buttonsId) {
 
         Platform.runLater(() -> {
-            if (controller != null) {
-                controller.createButtons(buttonsId);
+            if (menuController != null) {
+                menuController.createButtons(buttonsId);
             }
         });
     }
@@ -39,11 +39,15 @@ public class Menu {
         boolean beginGame = roomIsFilled>0;
         if(roomId>0) {
             Platform.runLater(() -> {
-                if (controller != null) {
-                    controller.loadRoomScene(roomId);
+                if (menuController != null) {
+                    menuController.loadRoomScene(roomId, beginGame);
                 }
             });
         }
 
+    }
+
+    public MenuNet getMenuNet() {
+        return menuNet;
     }
 }

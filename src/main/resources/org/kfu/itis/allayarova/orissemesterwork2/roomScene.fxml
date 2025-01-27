@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.image.ImageView?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0"
-            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.kfu.itis.allayarova.orissemesterwork2.controllers.RoomController"
-            stylesheets="@css/room.css">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@css/room.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.kfu.itis.allayarova.orissemesterwork2.controllers.RoomController">
    <center>
       <GridPane hgap="5.0" maxHeight="600.0" maxWidth="499.0" minHeight="400.0" minWidth="300.0" prefHeight="439.0" prefWidth="490.0" vgap="5.0" BorderPane.alignment="CENTER">
           <columnConstraints>
@@ -30,9 +27,6 @@
          </BorderPane.margin>
       </GridPane>
    </center>
-   <bottom>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </bottom>
    <top>
       <AnchorPane prefHeight="60.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
    </top>
@@ -43,4 +37,7 @@
             </children>
         </VBox>
     </right>
+   <bottom>
+      <HBox prefHeight="182.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>
