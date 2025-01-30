@@ -3,6 +3,7 @@ package org.kfu.itis.allayarova.orissemesterwork2.service.server;
 import org.kfu.itis.allayarova.orissemesterwork2.ClientHandler;
 import org.kfu.itis.allayarova.orissemesterwork2.models.Card;
 import org.kfu.itis.allayarova.orissemesterwork2.models.GameState;
+import org.kfu.itis.allayarova.orissemesterwork2.models.Player;
 import org.kfu.itis.allayarova.orissemesterwork2.models.Room;
 import org.kfu.itis.allayarova.orissemesterwork2.service.Commands;
 
@@ -12,6 +13,7 @@ public class SelectRowToPickHandler implements CommandHandler<String> {
     @Override
     public String handle(ClientHandler clientHandler, List<String> value) {
         Room room = clientHandler.getRoom();
+        Player player = clientHandler.getPlayer();
         GameState gameState = room.getGameState();
 
         gameState.pickRowCards(Integer.parseInt(value.getFirst()), clientHandler);
@@ -19,7 +21,9 @@ public class SelectRowToPickHandler implements CommandHandler<String> {
         room.broadcastMessage(Commands.UPDATE_PLAYING_FIELD.getCode()+ ":" +gameState.getPlayingFieldString());
 
         ClientHandler nextClientHandler = gameState.getNextClientHandlerByCurrentCardId(card.getNumber());
-        nextClientHandler.sendMessage(Commands.PUT_CARD_ON_TABLE.getCode()+":"+gameState.getNextCardId(card.getNumber()));
-        return Commands.DO_NOTHING.getCode() + ":" + 1;
+        if(nextClientHandler!=null) {
+            nextClientHandler.sendMessage(Commands.PUT_CARD_ON_TABLE.getCode() + ":" + gameState.getNextCardId(card.getNumber()));
+        }
+        return Commands.ROUND_COMPLETED.getCode()+":"+player.getPenaltyPoints();
     }
 }

@@ -13,6 +13,7 @@ public class GetCardsHandler implements CommandHandler<String>{
         builder.append(Commands.GET_CARDS.getCode()).append(":");
         String f = value.getFirst();
         int size = Integer.parseInt(f);
+
         for(int i = 0; i < size; i++) {
             builder.append(clientHandler.getRoom().getGameState().getCard().getNumber()).append(" ");
         }

@@ -17,19 +17,24 @@ public class SelectCardHandler implements CommandHandler<String> {
         Room room = clientHandler.getRoom();
         GameState gameState = room.getGameState();
         int cardId = Integer.parseInt(value.get(0));
+        System.out.println("Сервер получил карту "+cardId);
 
         gameState.addClientAndSelectedCards(clientHandler, cardId, room.getClients().size());
 
         if (!gameState.allPlayersSelectedCards(room.getClients().size())) {
+            //TODO НЕПРАВИЛЬНО РАБОТАЕТ СХОАНЕНИЕ КАРТ ПОЛОЖИЛА ДВЕ А ВСЕ РАВНО ДВА РАЗА ДЕЛАЕМ НИЧЕГО
+            System.out.println("Делаем ничего 1");
             return Commands.DO_NOTHING.getCode() + ":" + 1;
         }else {
+            gameState.updateMoveCounter();
             gameState.rangingCards();
             ClientHandler nextClientHandler = gameState.getNextClientHandlerByCurrentCardId(0);
             if (nextClientHandler != null) {
+                System.out.println("Отправляю класть карты");
                 nextClientHandler.sendMessage(Commands.PUT_CARD_ON_TABLE.getCode() + ":" + gameState.getNextCardId(0));
             }
         }
-
+        System.out.println("Делаю ничего 2");
         return Commands.DO_NOTHING.getCode() + ":" + 1;
     }
 

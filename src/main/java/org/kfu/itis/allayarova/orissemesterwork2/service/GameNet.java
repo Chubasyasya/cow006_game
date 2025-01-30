@@ -42,7 +42,11 @@ public class GameNet implements EventListener {
             if (commandCode == Commands.START_GAME.getCode()) {
                 game.beginGame();
             } else if (commandCode == Commands.GET_CARDS.getCode()) {
-                game.getCards(action.getValue());
+                if(action.getValue().getFirst().equals("-1")){
+                    client.sendMessage(Commands.GET_CARDS.getCode()+":"+10);
+                }else {
+                    game.getCards(action.getValue());
+                }
             }else if (commandCode == Commands.FIELD_INIT.getCode()){
                 game.fieldInit(action.getValue());
             }else if(commandCode == Commands.PUT_CARD_ON_TABLE.getCode()){

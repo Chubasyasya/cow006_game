@@ -13,6 +13,7 @@ public class GameState {
     
     private Map<Card, ClientHandler> clientAndSelectedCards;
     private List<Card> sortedChosenCards;
+    private int moveCounter;
 
     public synchronized Card getCard() {
         Card card = deck.getFirst();
@@ -25,6 +26,7 @@ public class GameState {
     public GameState() {
         this.deck = Deck.getCards();
         Collections.shuffle(deck);
+        moveCounter = 0;
 
         this.usedCards = new ArrayList<>();
     }
@@ -34,13 +36,21 @@ public class GameState {
         lastInRows = new Card[4];
     }
 
+    public void updateMoveCounter(){
+        moveCounter++;
+    }
+
+    public int getMoveCounter() {
+        return moveCounter;
+    }
+
+    public void setMoveCounter(int moveCounter) {
+        this.moveCounter = moveCounter;
+    }
+
     public void setCardOnPlayingField(int indexX, int indexY, Card card) {
         playingField[indexX][indexY] = card;
     }
-
-//    public void addClientAndSelectedCards(ClientHandler clientHandler, int cardId) {
-//        clientAndSelectedCards.put(getUsedCardById(cardId), clientHandler);
-//    }
 
     private Card getUsedCardById(int id){
         for(Card card:usedCards){
