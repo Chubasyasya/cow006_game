@@ -15,6 +15,7 @@ import java.util.List;
 
 public class MenuController extends BaseController{
     Menu menu;
+    RoomController roomController;
 
     @FXML
     private VBox buttonContainer;
@@ -40,23 +41,22 @@ public class MenuController extends BaseController{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/kfu/itis/allayarova/orissemesterwork2/roomScene.fxml"));
             Parent root = loader.load();
 
-            RoomController roomController = loader.getController();
-
+            roomController = loader.getController();
+            Game game = new Game(roomController, menu.getMenuNet());
+            roomController.setGame(game);
+            System.out.println("Заркгистрировали игру для текущего клиента");
             roomController.setRoomNumber(roomNumber);
-
-            if(beginGame){
-                Game game = new Game(roomController, menu.getMenuNet());
-
-                roomController.setGame(game);
-                game.startGame();
-//                roomController.startGame();
-            }
 
             Stage stage = (Stage) buttonContainer.getScene().getWindow();
             stage.setScene(new Scene(root));
+
+            if(beginGame){
+                menu.sendMessageAboutGameBegin();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 }

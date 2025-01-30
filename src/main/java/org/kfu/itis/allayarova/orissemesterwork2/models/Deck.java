@@ -17,6 +17,7 @@ public class Deck {
     }
 
     private static void loadCardsFromResources(String folderPath) {
+        String imagePath =  folderPath.substring(18);
         File folder = new File(folderPath);
         if (!folder.exists() || !folder.isDirectory()) {
             throw new IllegalArgumentException("Папка с картами не найдена: " + folderPath);
@@ -42,8 +43,8 @@ public class Deck {
                         }
                     }
 
-                    String imagePath = folderPath + "/" + fileName;
-                    Card card = new Card(number, penaltyPoints, imagePath);
+                    String fullImagePath = imagePath + "/" + fileName;
+                    Card card = new Card(number, penaltyPoints, fullImagePath);
                     cards.add(card);
                     cardsMap.put(number, card);
                 }

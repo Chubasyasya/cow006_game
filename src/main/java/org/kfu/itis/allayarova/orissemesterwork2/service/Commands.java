@@ -5,7 +5,15 @@ public enum Commands {
     ENTER_IN_ROOM(1),
     SEND_ROOM_LIST( 2),
     START_GAME(3),
-    GET_CARDS(4);
+    GET_CARDS(4),
+    FIELD_INIT(5),
+    SELECT_CARD(6),
+    DO_NOTHING(7),
+    NOTIFY_NEXT(8),
+    SELECT_ROW_TO_PICK(9),
+    PUT_CARD_ON_TABLE(10),
+    UPDATE_PLAYING_FIELD(11),
+    ROUND_COMPLETED(12);
 
     private final int code;
 

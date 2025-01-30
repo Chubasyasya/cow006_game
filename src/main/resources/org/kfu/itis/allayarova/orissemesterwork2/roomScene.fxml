@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@css/room.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.kfu.itis.allayarova.orissemesterwork2.controllers.RoomController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1150.0" stylesheets="@css/room.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.kfu.itis.allayarova.orissemesterwork2.controllers.RoomController">
    <center>
-      <GridPane hgap="5.0" maxHeight="600.0" maxWidth="499.0" minHeight="400.0" minWidth="300.0" prefHeight="439.0" prefWidth="490.0" vgap="5.0" BorderPane.alignment="CENTER">
+      <GridPane fx:id="gridPane" focusTraversable="true" hgap="5.0" maxHeight="600.0" maxWidth="776.0" minHeight="400.0" minWidth="300.0" prefHeight="549.0" prefWidth="776.0" vgap="5.0" BorderPane.alignment="CENTER">
           <columnConstraints>
               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -28,16 +30,53 @@
       </GridPane>
    </center>
    <top>
-      <AnchorPane prefHeight="60.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="92.0" prefWidth="1150.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" layoutX="936.0" layoutY="17.0" prefHeight="59.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="14.400000000000091" AnchorPane.topAnchor="17.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Penalty Points">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="ponits" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+         </children></AnchorPane>
    </top>
     <right>
-        <VBox fx:id="rightContainer" prefHeight="340.0" prefWidth="291.0" BorderPane.alignment="CENTER">
+        <VBox fx:id="rightContainer" alignment="BOTTOM_CENTER" prefHeight="558.0" prefWidth="241.0" BorderPane.alignment="CENTER">
             <children>
-                <ImageView fx:id="deckImageView" fitHeight="200.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="deckImageView" fitHeight="200.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                   <VBox.margin>
+                      <Insets bottom="200.0" left="40.0" right="40.0" top="40.0" />
+                   </VBox.margin>
+                   <viewport>
+                      <Rectangle2D />
+                   </viewport>
+                </ImageView>
+                <Button fx:id="sendButton" onAction="#sendSelectedCard" text="Отправить карту" visible="false">
+                    <VBox.margin>
+                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                   </VBox.margin>
+                </Button>
             </children>
         </VBox>
     </right>
    <bottom>
-      <HBox prefHeight="182.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
+       <HBox fx:id="cardsContainer" alignment="CENTER" prefHeight="216.0" prefWidth="1000.0" spacing="0" BorderPane.alignment="TOP_CENTER">
+           <children>
+           </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+       </HBox>
    </bottom>
 </BorderPane>

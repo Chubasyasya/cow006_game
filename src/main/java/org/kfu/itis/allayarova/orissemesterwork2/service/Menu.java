@@ -7,6 +7,7 @@ import org.kfu.itis.allayarova.orissemesterwork2.models.Action;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Menu{
@@ -44,7 +45,10 @@ public class Menu{
                 }
             });
         }
+    }
 
+    public void sendMessageAboutGameBegin() {
+        menuNet.send(new Action(Commands.START_GAME, Collections.singletonList(10)));
     }
 
     public MenuNet getMenuNet() {

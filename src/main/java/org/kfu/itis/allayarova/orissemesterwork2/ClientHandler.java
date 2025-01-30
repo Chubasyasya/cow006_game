@@ -36,7 +36,7 @@ public class ClientHandler implements Runnable {
         try {
             String message;
             while ((message = in.readLine()) != null) {
-                Action action = CommandConverter.toMessage(message);
+                Action action = CommandConverter.toOneMessage(message);
                 CommandHandler handler = CommandHandlerFactory.getHandler(action.getCommand());
                 if (handler != null) {
                     String serverMessage = handler.handle(this, action.getValue());
@@ -88,6 +88,14 @@ public class ClientHandler implements Runnable {
         } catch (IOException e) {
             System.err.println("Failed to close resources: " + e.getMessage());
         }
+    }
+
+    public BufferedReader getIn() {
+        return in;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
 

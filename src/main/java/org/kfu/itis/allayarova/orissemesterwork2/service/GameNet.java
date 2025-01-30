@@ -5,6 +5,8 @@ import org.kfu.itis.allayarova.orissemesterwork2.models.Action;
 import org.kfu.itis.allayarova.orissemesterwork2.service.server.messageListener.EventListener;
 import org.kfu.itis.allayarova.orissemesterwork2.service.server.messageListener.NetworkEvent;
 
+import java.util.List;
+
 public class GameNet implements EventListener {
     private Game game;
     private Client client;
@@ -12,6 +14,7 @@ public class GameNet implements EventListener {
     public GameNet(Game game, Client client) {
         this.game = game;
         this.client = client;
+        client.addListener(this);
     }
 
     public void startGame(Action action) {
@@ -32,12 +35,26 @@ public class GameNet implements EventListener {
     }
 
     public void eventReact(NetworkEvent event){
-        System.out.println("Событие обработано: " + event.getData());
-        Action action = CommandConverter.toMessage(event.getData());
-        if(action.getCommand().getCode()==Commands.START_GAME.getCode()){
-            game.beginGame();
-        } else if (action.getCommand().getCode()==Commands.GET_CARDS.getCode()) {
-            game.getCards(action.getValue());
+        System.out.println("Событие обработано gameNet: " + event.getData());
+        List<Action> actions = CommandConverter.toMessage(event.getData());
+        for(Action action: actions) {
+            int commandCode = action.getCommand().getCode();
+            if (commandCode == Commands.START_GAME.getCode()) {
+                game.beginGame();
+            } else if (commandCode == Commands.GET_CARDS.getCode()) {
+                game.getCards(action.getValue());
+            }else if (commandCode == Commands.FIELD_INIT.getCode()){
+                game.fieldInit(action.getValue());
+            }else if(commandCode == Commands.PUT_CARD_ON_TABLE.getCode()){
+                client.sendMessage(event.getData());
+            }else if(commandCode == Commands.SELECT_ROW_TO_PICK.getCode()){
+                game.selectRowToPick();
+            }else if(commandCode == Commands.UPDATE_PLAYING_FIELD.getCode()){
+                game.updatePlayingField(action.getValue());
+            }else if(commandCode == Commands.ROUND_COMPLETED.getCode()){
+                game.roundCompleted(Integer.parseInt((String) action.getValue().getFirst()));
+            }
         }
     }
+
 }

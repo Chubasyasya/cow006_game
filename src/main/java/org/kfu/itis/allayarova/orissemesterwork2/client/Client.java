@@ -33,12 +33,15 @@ public class Client {
         }
     }
 
-    public void listenMessages(MenuNet menuNet) {
+    public void listenMessages() {
         new Thread(() -> {
-            addListener(menuNet);
             try {
                 String message;
                 while ((message = in.readLine()) != null) {
+                    System.out.println("Показываю слушателей");
+                    for (EventListener d :dispatcher.getListeners()){
+                        System.out.println(d.toString());
+                    }
                     dispatcher.dispatch(new NetworkEvent("response", message));
                     System.out.println("Message received: " + message);
                 }

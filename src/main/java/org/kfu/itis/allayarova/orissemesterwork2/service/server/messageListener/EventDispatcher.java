@@ -19,4 +19,8 @@ public class EventDispatcher {
             listener.onEvent(event);
         }
     }
+
+    public List<EventListener> getListeners() {
+        return listeners;
+    }
 }

@@ -19,22 +19,57 @@ public class Game{
         this.roomController = controller;
     }
 
-    public void startGame() {
-        gameNet.startGame(new Action<Integer>(Commands.START_GAME, Collections.singletonList(1)));
-    }
 
     public void beginGame() {
-        gameNet.send(new Action<>(Commands.GET_CARDS, Collections.singletonList(10)));
-        roomController.startGame();
+
     }
 
     public void getCards(List<String> cardsId) {
+        List<Card> cards = findCardsById(cardsId);
+
+        roomController.getCards(cards);
+    }
+
+    public void fieldInit(List<String> cardsId) {
+        List<Card> cards = findCardsById(cardsId);
+
+        roomController.fieldInit(cards);
+    }
+
+    private List<Card> findCardsById(List<String> cardsId){
         List<Card> cards = new ArrayList<>();
         for(String cardId: cardsId){
             Card card = Deck.getCardById(Integer.parseInt(cardId));
             cards.add(card);
         }
+        return cards;
+    }
 
-        roomController.getCards(cards);
+    public void sendCardToServer(Card card) {
+        gameNet.send(new Action<Integer>(Commands.SELECT_CARD, Collections.singletonList(card.getNumber())));
+    }
+
+    public void selectRowToPick() {
+        roomController.enableRowSelection();
+    }
+
+    public void sendRowToServer(int rowIndex) {
+        gameNet.send(new Action<>(Commands.SELECT_ROW_TO_PICK, Collections.singletonList(rowIndex)));
+    }
+
+    public void updatePlayingField(List<String> field) {
+        Card[][] playingField = new Card[4][6];
+        for(int i = 0; i < field.size(); i++){
+            int row = i/6;
+            int col = i%6;
+            int cardId = Integer.parseInt(field.get(i));
+            Card card = cardId==-1? null:Deck.getCardById(cardId);
+            playingField[row][col] = card;
+        }
+        roomController.updatePlayingField(playingField);
+    }
+
+    public void roundCompleted(int penaltyPoints) {
+        roomController.roundCompleted(penaltyPoints);
     }
 }

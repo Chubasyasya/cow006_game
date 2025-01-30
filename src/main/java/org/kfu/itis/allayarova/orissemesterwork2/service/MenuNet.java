@@ -17,7 +17,8 @@ public class MenuNet implements EventListener{
         this.menu = menu;
 
         client = new Client();
-        client.listenMessages(this);
+        client.addListener(this);
+        client.listenMessages();
     }
 
     public void send(Action action){
@@ -32,15 +33,18 @@ public class MenuNet implements EventListener{
     }
 
     public void eventReact(NetworkEvent event) {
-        System.out.println("Событие обработано: " + event.getData());
-        Action action = CommandConverter.toMessage(event.getData());
-        if(action.getCommand().getCode()==Commands.ENTER_IN_ROOM.getCode()){
-            menu.enterInRoomResponse(Integer.parseInt((String) action.getValue().getFirst()), Integer.parseInt((String) action.getValue().get(1)));
-        } else if (action.getCommand().getCode()==Commands.SEND_ROOM_LIST.getCode()) {
-            menu.createButtons(((List<String>) action.getValue())
-                    .stream()
-                    .map(Integer::parseInt)
-                    .collect(Collectors.toList()));
+        System.out.println("Событие обработано MenuNet: " + event.getData());
+        List<Action> actions = CommandConverter.toMessage(event.getData());
+
+        for(Action action: actions) {
+            if (action.getCommand().getCode() == Commands.ENTER_IN_ROOM.getCode()) {
+                menu.enterInRoomResponse(Integer.parseInt((String) action.getValue().getFirst()), Integer.parseInt((String) action.getValue().get(1)));
+            } else if (action.getCommand().getCode() == Commands.SEND_ROOM_LIST.getCode()) {
+                menu.createButtons(((List<String>) action.getValue())
+                        .stream()
+                        .map(Integer::parseInt)
+                        .collect(Collectors.toList()));
+            }
         }
     }
 

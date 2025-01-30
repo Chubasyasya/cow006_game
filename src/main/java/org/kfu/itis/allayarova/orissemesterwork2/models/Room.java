@@ -2,11 +2,12 @@ package org.kfu.itis.allayarova.orissemesterwork2.models;
 
 import org.kfu.itis.allayarova.orissemesterwork2.ClientHandler;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Room {
+public class Room{
     int size;
     Set<ClientHandler> clients;
     GameState gameState;
@@ -31,6 +32,12 @@ public class Room {
             return true;
         }
         return false;
+    }
+
+    public synchronized void broadcastMessage(String message) {
+        for (ClientHandler client : clients) {
+            client.sendMessage(message);
+        }
     }
 
     public int getSize() {

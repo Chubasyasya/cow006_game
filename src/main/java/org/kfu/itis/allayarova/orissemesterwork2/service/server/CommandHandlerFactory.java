@@ -12,6 +12,10 @@ public class CommandHandlerFactory {
         commandHandlers.put(Commands.ENTER_IN_ROOM, new EnterInRoomHandler());
         commandHandlers.put(Commands.START_GAME, new StartGameHandler());
         commandHandlers.put(Commands.GET_CARDS, new GetCardsHandler());
+        commandHandlers.put(Commands.FIELD_INIT, new FieldInitHandler());
+        commandHandlers.put(Commands.SELECT_CARD, new SelectCardHandler());
+        commandHandlers.put(Commands.SELECT_ROW_TO_PICK, new SelectRowToPickHandler());
+        commandHandlers.put(Commands.PUT_CARD_ON_TABLE, new PutCardOnTableHandler());
     }
 
     public static CommandHandler getHandler(Commands command) {
