@@ -4,6 +4,7 @@ import org.kfu.itis.allayarova.orissemesterwork2.ClientHandler;
 import org.kfu.itis.allayarova.orissemesterwork2.service.Commands;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class GameState {
     private Card[][] playingField;
@@ -106,14 +107,16 @@ public class GameState {
              return Commands.SELECT_ROW_TO_PICK;
         } else {
             lastInRows[minDiffRow] = card;
+            int points = 0;
             for (int i = 0; i < 6; i++) {
-                if (playingField[minDiffRow][i] == null) {
+                if(playingField[minDiffRow][i] != null) {
+                    points += playingField[minDiffRow][i].getPenaltyPoints();
+                }else {
                     playingField[minDiffRow][i] = card;
                     if (i == 5) {
                         nullRow(minDiffRow);
                         playingField[minDiffRow][0] = card;
-                        player.addPenaltyPoints(card.getPenaltyPoints());
-                        return Commands.NOTIFY_NEXT;
+                        player.addPenaltyPoints(points+card.getPenaltyPoints());
                     }
                     break;
                 }
@@ -157,7 +160,9 @@ public class GameState {
     }
 
     public void pickRowCards(int rowNumber, ClientHandler clientHandler) {
-        int penaltyPoints = 0;
+        Player player = clientHandler.getPlayer();
+        int penaltyPoints = player.getPenaltyPoints();
+
         for(int i =0; i < 6; i++) {
             if(playingField[rowNumber][i]!=null) {
                 penaltyPoints += playingField[rowNumber][i].getPenaltyPoints();
@@ -166,8 +171,10 @@ public class GameState {
                 break;
             }
         }
+
         Card card = getCardByClientHandler(clientHandler);
-        clientHandler.getPlayer().setPenaltyPoints(penaltyPoints);
+        player.setPenaltyPoints(penaltyPoints);
+
         playingField[rowNumber][0] = card;
         lastInRows[rowNumber] = card;
     }
@@ -192,7 +199,7 @@ public class GameState {
     }
 
     public boolean allPlayersSelectedCards(int size) {
-        System.out.println("Client and cards" + clientAndSelectedCards.keySet());
+        System.out.println("Client and cards" + clientAndSelectedCards.keySet().stream().map(x -> x.getNumber()).collect(Collectors.toSet()));
         return clientAndSelectedCards.size() == size;
     }
 

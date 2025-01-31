@@ -20,6 +20,7 @@ public class SelectCardHandler implements CommandHandler<String> {
         System.out.println("Сервер получил карту "+cardId);
 
         gameState.addClientAndSelectedCards(clientHandler, cardId, room.getClients().size());
+        System.out.println("Количество игроков сдавших карты "+room.getClients().size());
 
         if (!gameState.allPlayersSelectedCards(room.getClients().size())) {
             //TODO НЕПРАВИЛЬНО РАБОТАЕТ СХОАНЕНИЕ КАРТ ПОЛОЖИЛА ДВЕ А ВСЕ РАВНО ДВА РАЗА ДЕЛАЕМ НИЧЕГО

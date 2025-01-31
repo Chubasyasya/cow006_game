@@ -76,7 +76,13 @@ public class RoomController {
             for (Card card : cards) {
                 String imagePath = getClass().getResource(card.getImagePath()).toExternalForm();
                 Image cardImage = new Image(imagePath);
+                if (cardImage.isError()) {
+                    System.out.println("Ошибка загрузки изображения: " + imagePath);
+                    cardImage.getException().printStackTrace();
+                }
+
                 ImageView cardImageView = new ImageView(cardImage);
+
                 cardImageView.setFitHeight(150);
                 cardImageView.setFitWidth(100);
 

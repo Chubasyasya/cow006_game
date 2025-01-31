@@ -42,7 +42,7 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <Text fx:id="ponits" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT">
+                  <Text fx:id="points" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT">
                      <font>
                         <Font size="24.0" />
                      </font>

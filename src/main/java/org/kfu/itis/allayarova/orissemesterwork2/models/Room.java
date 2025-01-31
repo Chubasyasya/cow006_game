@@ -40,6 +40,13 @@ public class Room{
         }
     }
 
+    public  void sendPenaltyPoints(String message){
+        for (ClientHandler client : clients) {
+            Player player = client.getPlayer();
+            client.sendMessage(message+player.getPenaltyPoints());
+        }
+    }
+
     public int getSize() {
         return size;
     }
