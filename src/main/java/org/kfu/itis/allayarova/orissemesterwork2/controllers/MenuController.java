@@ -28,7 +28,7 @@ public class MenuController extends BaseController{
     public void createButtons(List<Integer> numbers) {
         buttonContainer.getChildren().clear();
         for (Integer number : numbers) {
-            Button button = new Button("Room " + number);
+            Button button = new Button("Комната " + number);
             button.setOnAction(e -> {
                 menu.enterInRoom(number);
             });
@@ -44,7 +44,7 @@ public class MenuController extends BaseController{
             roomController = loader.getController();
             Game game = new Game(roomController, menu.getMenuNet());
             roomController.setGame(game);
-            System.out.println("Заркгистрировали игру для текущего клиента");
+
             roomController.setRoomNumber(roomNumber);
 
             Stage stage = (Stage) buttonContainer.getScene().getWindow();

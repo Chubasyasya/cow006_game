@@ -1,11 +1,18 @@
 package org.kfu.itis.allayarova.orissemesterwork2.models;
 
+import org.kfu.itis.allayarova.orissemesterwork2.ClientHandler;
+
 import java.util.List;
 
-public class Player {
+public class Player implements Comparable<Player>{
+    private ClientHandler clientHandler;
     private String name;
     private int penaltyPoints;
     private List<Card> cards;
+
+    public Player(ClientHandler clientHandler) {
+        this.clientHandler = clientHandler;
+    }
 
     public String getName() {
         return name;
@@ -34,4 +41,14 @@ public class Player {
     public void addPenaltyPoints(int penaltyPoints) {
         this.penaltyPoints+=penaltyPoints;
     }
+
+    public ClientHandler getClientHandler() {
+        return clientHandler;
+    }
+
+    @Override
+    public int compareTo(Player o) {
+        return Integer.compare(this.penaltyPoints, o.getPenaltyPoints());
+    }
+
 }

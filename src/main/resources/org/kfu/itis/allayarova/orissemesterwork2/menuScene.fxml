@@ -4,6 +4,9 @@
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.kfu.itis.allayarova.orissemesterwork2.controllers.MenuController"
-      spacing="10" alignment="CENTER" prefWidth="400" prefHeight="300">
+      spacing="10" alignment="CENTER"
+      minWidth="-Infinity" prefHeight="800.0" prefWidth="1150.0"
+      style="-fx-background-color: #736081;"
+      stylesheets="@css/base.css">
     <VBox fx:id="buttonContainer" spacing="10" alignment="CENTER"/>
 </VBox>

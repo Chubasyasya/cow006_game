@@ -2,12 +2,11 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1150.0" stylesheets="@css/room.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.kfu.itis.allayarova.orissemesterwork2.controllers.RoomController">
-   <center>
+<BorderPane fx:id="borderPane" prefHeight="800.0" prefWidth="1150.0" style="-fx-background-color: #736081;" stylesheets="@css/room.css, @css/base.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.kfu.itis.allayarova.orissemesterwork2.controllers.RoomController">
+    <center>
       <GridPane fx:id="gridPane" focusTraversable="true" hgap="5.0" maxHeight="600.0" maxWidth="776.0" minHeight="400.0" minWidth="300.0" prefHeight="549.0" prefWidth="776.0" vgap="5.0" BorderPane.alignment="CENTER">
           <columnConstraints>
               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -32,9 +31,9 @@
    <top>
       <AnchorPane prefHeight="92.0" prefWidth="1150.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" layoutX="936.0" layoutY="17.0" prefHeight="59.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="14.400000000000091" AnchorPane.topAnchor="17.0">
+            <HBox alignment="CENTER" layoutX="936.0" layoutY="17.0" prefHeight="59.0" prefWidth="200.0" spacing="10.0" styleClass="rounded-box" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="14.400000000000091" AnchorPane.topAnchor="17.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Penalty Points">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Штрафные баллы">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -49,25 +48,26 @@
                   </Text>
                </children>
             </HBox>
-         </children></AnchorPane>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets right="40.0" top="20.0" />
+         </padding></AnchorPane>
    </top>
     <right>
         <VBox fx:id="rightContainer" alignment="BOTTOM_CENTER" prefHeight="558.0" prefWidth="241.0" BorderPane.alignment="CENTER">
             <children>
-                <ImageView fx:id="deckImageView" fitHeight="200.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                   <VBox.margin>
-                      <Insets bottom="200.0" left="40.0" right="40.0" top="40.0" />
-                   </VBox.margin>
-                   <viewport>
-                      <Rectangle2D />
-                   </viewport>
-                </ImageView>
                 <Button fx:id="sendButton" onAction="#sendSelectedCard" text="Отправить карту" visible="false">
                     <VBox.margin>
                       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                    </VBox.margin>
                 </Button>
             </children>
+         <padding>
+            <Insets right="40.0" />
+         </padding>
         </VBox>
     </right>
    <bottom>

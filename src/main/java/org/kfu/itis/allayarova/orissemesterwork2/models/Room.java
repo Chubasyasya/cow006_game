@@ -15,7 +15,6 @@ public class Room{
     public Room(int size, Set<ClientHandler> clients) {
         this.size = size;
         this.clients = clients;
-        gameState = new GameState(this);
     }
 
     public Room() {
@@ -24,6 +23,28 @@ public class Room{
 
     public Set<ClientHandler> getClients() {
         return clients;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
+    public void sendMessage(List<ClientHandler> clientHandlers, String message) {
+        for (ClientHandler clientHandler: clientHandlers){
+            clientHandler.sendMessage(message);
+        }
     }
 
     public boolean addClient(ClientHandler clientHandler) {
@@ -47,15 +68,4 @@ public class Room{
         }
     }
 
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public GameState getGameState() {
-        return gameState;
-    }
 }

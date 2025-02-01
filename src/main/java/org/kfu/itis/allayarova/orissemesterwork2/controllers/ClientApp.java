@@ -2,6 +2,7 @@ package org.kfu.itis.allayarova.orissemesterwork2.controllers;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -16,9 +17,9 @@ public class ClientApp extends Application {
 
         BaseController controller = loader.getController();
 
-        Scene scene = new Scene(root, 400, 300);
+        Scene scene = new Scene(root, 1150, 800);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Client App");
+        primaryStage.setTitle("Cow 006");
         primaryStage.show();
     }
 

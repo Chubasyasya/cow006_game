@@ -1,24 +1,38 @@
 package org.kfu.itis.allayarova.orissemesterwork2.controllers;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.kfu.itis.allayarova.orissemesterwork2.models.Card;
 import org.kfu.itis.allayarova.orissemesterwork2.service.Game;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoomController {
     private Game game;
+
+    @FXML
+    private BorderPane borderPane;
+
     @FXML
     private Button sendButton;
 
@@ -32,33 +46,20 @@ public class RoomController {
     private HBox cardsContainer;
 
     @FXML
-    private ImageView deckImageView;
-    @FXML
     private Text points = new Text("0");
     private boolean isDeckEmpty = false;
     private Card selectedCard = null;
     private Button selectedCardButton = null;
     private boolean isCardSent = false;
+    private MenuController menuController;
 
     @FXML
     public void initialize(){
         Image deckImage = new Image(getClass().getResource("/org/kfu/itis/allayarova/orissemesterwork2/images/card_back2.png").toExternalForm());
-        deckImageView.setImage(deckImage);
-
-        checkDeckStatus();
     }
 
     public void setDeckEmpty(boolean isDeckEmpty) {
         this.isDeckEmpty = isDeckEmpty;
-        checkDeckStatus();
-    }
-
-    private void checkDeckStatus() {
-        if (isDeckEmpty) {
-            deckImageView.setVisible(false);
-        } else {
-            deckImageView.setVisible(true);
-        }
     }
 
     public void setRoomNumber(int roomNumber) {
@@ -136,16 +137,45 @@ public class RoomController {
             for (int i = 0; i < Math.min(cards.size(), rowCount); i++) {
                 Card card = cards.get(i);
 
-                String imagePath = getClass().getResource(card.getImagePath()).toExternalForm();
-                Image cardImage = new Image(imagePath);
-                ImageView cardImageView = new ImageView(cardImage);
-
-                cardImageView.setFitHeight(150);
-                cardImageView.setFitWidth(100);
-
-                gridPane.add(cardImageView, 0, i);
+                gridPane.add(getCardImageView(card), 0, i);
             }
         });
+    }
+
+    public void updatePlayingField(Card[][] playingField) {
+        Platform.runLater(() -> {
+            gridPane.getChildren().clear();
+
+            int rows = playingField.length;
+            int cols = playingField[0].length;
+
+            for (int row = 0; row < rows; row++) {
+                for (int col = 0; col < cols; col++) {
+                    Card card = playingField[row][col];
+
+                    if (card != null) {
+                        gridPane.add(getCardImageView(card), col, row);
+                    } else {
+                        ImageView emptySlot = new ImageView();
+                        emptySlot.setFitHeight(150);
+                        emptySlot.setFitWidth(100);
+                        emptySlot.setStyle("-fx-border-color: black; -fx-border-width: 6px;");
+
+                        gridPane.add(emptySlot, col, row);
+                    }
+                }
+            }
+        });
+    }
+
+    public ImageView getCardImageView(Card card){
+        String imagePath = getClass().getResource(card.getImagePath()).toExternalForm();
+        Image cardImage = new Image(imagePath);
+        ImageView cardImageView = new ImageView(cardImage);
+
+        cardImageView.setFitHeight(150);
+        cardImageView.setFitWidth(100);
+        return cardImageView;
     }
 
     public void enableRowSelection() {
@@ -187,35 +217,47 @@ public class RoomController {
         });
     }
 
-    public void updatePlayingField(Card[][] playingField) {
+    public void showResult(int result) {
         Platform.runLater(() -> {
-            gridPane.getChildren().clear();
+            String message;
+            String title;
+            if (result == 1) {
+                message = "Ура! Ты выиграл!";
+                title = "Победа!";
+            } else if (result == 0) {
+                message = "Ты проиграл! Попробуй снова!";
+                title = "Проигрыш!";
+            } else {
+                message = "Ты не проиграл и не выиграл!";
+                title = "Ты чилл гай!";
+            }
 
-            int rows = playingField.length;
-            int cols = playingField[0].length;
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/kfu/itis/allayarova/orissemesterwork2/resultScene.fxml"));
+                Parent root = loader.load();
 
-            for (int row = 0; row < rows; row++) {
-                for (int col = 0; col < cols; col++) {
-                    Card card = playingField[row][col];
+                ResultController resultController = loader.getController();
+                resultController.setResultMessage(message);
 
-                    if (card != null) {
-                        String imagePath = getClass().getResource(card.getImagePath()).toExternalForm();
-                        Image cardImage = new Image(imagePath);
-                        ImageView cardImageView = new ImageView(cardImage);
-                        cardImageView.setFitHeight(150);
-                        cardImageView.setFitWidth(100);
-
-                        gridPane.add(cardImageView, col, row);
-                    } else {
-                        ImageView emptySlot = new ImageView();
-                        emptySlot.setFitHeight(150);
-                        emptySlot.setFitWidth(100);
-                        emptySlot.setStyle("-fx-border-color: black; -fx-border-width: 1px;");
-
-                        gridPane.add(emptySlot, col, row);
-                    }
-                }
+                Stage stage = (Stage) gridPane.getScene().getWindow();
+                stage.setScene(new Scene(root));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
+    }
+
+    public void switchToMenu() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/kfu/itis/allayarova/orissemesterwork2/menuScene.fxml"));
+            Parent root = loader.load();
+
+
+            Stage stage = (Stage) borderPane.getScene().getWindow();
+            stage.setScene(new Scene(root));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

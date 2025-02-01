@@ -17,31 +17,20 @@ public class GameNet implements EventListener {
         client.addListener(this);
     }
 
-    public void startGame(Action action) {
-        client.addListener(this);
-        send(action);
-
-    }
-
     public void send(Action action){
         client.sendMessage(CommandConverter.toString(action));
     }
 
     @Override
     public void onEvent(NetworkEvent event) {
-        if ("response".equals(event.getType())) {
-            eventReact(event);
-        }
-    }
-
-    public void eventReact(NetworkEvent event){
         System.out.println("Событие обработано gameNet: " + event.getData());
-        List<Action> actions = CommandConverter.toMessage(event.getData());
-        for(Action action: actions) {
+        List<Action<String>> actions = CommandConverter.toMessage(event.getData());
+        for(Action<String> action: actions) {
             int commandCode = action.getCommand().getCode();
-            if (commandCode == Commands.START_GAME.getCode()) {
-                game.beginGame();
-            } else if (commandCode == Commands.GET_CARDS.getCode()) {
+//            if (commandCode == Commands.START_GAME.getCode()) {
+//                game.beginGame();
+//            } else
+            if (commandCode == Commands.GET_CARDS.getCode()) {
                 if(action.getValue().getFirst().equals("-1")){
                     client.sendMessage(Commands.GET_CARDS.getCode()+":"+10);
                 }else {
@@ -56,7 +45,9 @@ public class GameNet implements EventListener {
             }else if(commandCode == Commands.UPDATE_PLAYING_FIELD.getCode()){
                 game.updatePlayingField(action.getValue());
             }else if(commandCode == Commands.ROUND_COMPLETED.getCode()){
-                game.roundCompleted(Integer.parseInt((String) action.getValue().getFirst()));
+                game.roundCompleted(Integer.parseInt(action.getValue().getFirst()));
+            }else if (commandCode == Commands.GAME_RESULT.getCode()){
+                game.gameResult(Integer.parseInt(action.getValue().getFirst()));
             }
         }
     }

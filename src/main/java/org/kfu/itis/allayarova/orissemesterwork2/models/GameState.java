@@ -15,12 +15,15 @@ public class GameState {
     
     private Map<Card, ClientHandler> clientAndSelectedCards;
     private List<Card> sortedChosenCards;
+    private List<Player> playersRangedByPoints;
     private int moveCounter;
 
     public GameState(Room room) {
         this.room = room;
+        playersRangedByPoints = new ArrayList<>();
+
         this.deck = new ArrayList<>(Deck.getCards());
-        Collections.shuffle(deck);
+        Collections.shuffle(this.deck);
         moveCounter = 0;
 
         this.usedCards = new ArrayList<>();
@@ -198,10 +201,73 @@ public class GameState {
     }
 
     public void updateGameState() {
-        this.deck = new ArrayList<>(Deck.getCards());
+        deck = new ArrayList<>(Deck.getCards());
+        Collections.shuffle(deck);
+
         usedCards.clear();
         clientAndSelectedCards.clear();
         sortedChosenCards.clear();
         moveCounter = 0;
+    }
+
+    public void sortPlayers(){
+        Collections.sort(playersRangedByPoints);
+    }
+    public List<ClientHandler> determineLosers() {
+        List<ClientHandler> result = new ArrayList<>();
+        if (playersRangedByPoints.isEmpty()) return result;
+
+        int maxValue = playersRangedByPoints.getLast().getPenaltyPoints();
+
+        for (int i = playersRangedByPoints.size() - 1; i >= 0; i--) {
+            if (playersRangedByPoints.get(i).getPenaltyPoints() == maxValue) {
+                result.add(playersRangedByPoints.get(i).getClientHandler());
+            } else {
+                break;
+            }
+        }
+        return result;
+    }
+
+    public List<ClientHandler> determineWinners() {
+        List<ClientHandler> result = new ArrayList<>();
+        if (playersRangedByPoints.isEmpty()) return null;
+
+        int minValue = playersRangedByPoints.getFirst().getPenaltyPoints();
+
+        for (int i = 0; i < playersRangedByPoints.size(); i++) {
+            if (playersRangedByPoints.get(i).getPenaltyPoints() == minValue) {
+                result.add(playersRangedByPoints.get(i).getClientHandler());
+            } else {
+                break;
+            }
+        }
+        return result;
+    }
+
+    public List<ClientHandler> determineAvgPlayers() {
+        List<ClientHandler> result = new ArrayList<>();
+        if (playersRangedByPoints.isEmpty()) return null;
+
+        int minValue = playersRangedByPoints.getFirst().getPenaltyPoints();
+        int maxValue = playersRangedByPoints.getLast().getPenaltyPoints();
+
+        for (int i = 0; i < playersRangedByPoints.size(); i++) {
+            int penPoints = playersRangedByPoints.get(i).getPenaltyPoints();
+            if (penPoints != minValue && penPoints!=maxValue) {
+                result.add(playersRangedByPoints.get(i).getClientHandler());
+            }
+        }
+        return result;
+    }
+
+    public List<Player> getPlayersRangedByPoints() {
+        return playersRangedByPoints;
+    }
+
+    public void setPlayersRangedByPoints(Set<ClientHandler> clients) {
+        for(ClientHandler clientHandler: clients){
+            playersRangedByPoints.add(clientHandler.getPlayer());
+        }
     }
 }

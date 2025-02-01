@@ -23,7 +23,7 @@ public class ClientHandler implements Runnable {
             this.socket = socket;
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
-            this.player = new Player();
+            this.player = new Player(this);
         } catch (IOException e) {
             throw new RuntimeException("Failed to initialize client handler: " + e.getMessage(), e);
         }

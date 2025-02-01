@@ -9,6 +9,7 @@ import org.kfu.itis.allayarova.orissemesterwork2.service.Commands;
 import java.util.List;
 
 public class PutCardOnTableHandler implements CommandHandler<String>{
+    private static int MAX_PENALTY_POINTS = 22;
     @Override
     public String handle(ClientHandler clientHandler, List<String> value) {
         GameState gameState = clientHandler.getRoom().getGameState();
@@ -30,6 +31,19 @@ public class PutCardOnTableHandler implements CommandHandler<String>{
         }else if(c.equals(Commands.ROUND_COMPLETED)){
             room.sendPenaltyPoints(Commands.ROUND_COMPLETED.getCode()+":");
             if(gameState.getMoveCounter()==10){
+                gameState.sortPlayers();
+                if(gameState.getPlayersRangedByPoints().getLast().getPenaltyPoints()>=MAX_PENALTY_POINTS) {
+                    List<ClientHandler> losers = gameState.determineLosers();
+                    List<ClientHandler> winners = gameState.determineWinners();
+                    List<ClientHandler> avgPlayers = gameState.determineAvgPlayers();
+
+                    if (losers.getFirst().getPlayer().getPenaltyPoints() >= MAX_PENALTY_POINTS) {
+                        room.sendMessage(losers, Commands.GAME_RESULT.getCode() + ":" + 0);
+                        room.sendMessage(winners, Commands.GAME_RESULT.getCode() + ":" + 1);
+                        room.sendMessage(avgPlayers, Commands.GAME_RESULT.getCode() + ":" + 2);
+                    }
+                    room.getClients().clear();
+                }
 
                 gameState.updateGameState();
                 StartGameHandler nextHandler = (StartGameHandler) CommandHandlerFactory.getHandler(Commands.START_GAME);

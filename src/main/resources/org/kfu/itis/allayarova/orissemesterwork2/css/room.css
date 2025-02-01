@@ -1,6 +1,8 @@
-.root {
-    -fx-background-image: url("/org/kfu/itis/allayarova/orissemesterwork2/images/background.jpg");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: cover;
+.rounded-box {
+    -fx-background-color: #f4edff;
+    -fx-background-radius: 15;
+    -fx-border-color: #f2ecfd;
+    -fx-border-width: 2;
+    -fx-border-radius: 15;
+    -fx-padding: 10;
 }

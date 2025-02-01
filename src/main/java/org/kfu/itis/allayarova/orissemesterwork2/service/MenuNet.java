@@ -27,14 +27,8 @@ public class MenuNet implements EventListener{
 
     @Override
     public void onEvent(NetworkEvent event) {
-        if ("response".equals(event.getType())) {
-            eventReact(event);
-        }
-    }
-
-    public void eventReact(NetworkEvent event) {
         System.out.println("Событие обработано MenuNet: " + event.getData());
-        List<Action> actions = CommandConverter.toMessage(event.getData());
+        List<Action<String>> actions = CommandConverter.toMessage(event.getData());
 
         for(Action action: actions) {
             if (action.getCommand().getCode() == Commands.ENTER_IN_ROOM.getCode()) {

@@ -15,8 +15,8 @@ public class CommandConverter {
         return action.getCommand().getCode() + ":" + valueString;
     }
 
-    public static List<Action> toMessage(String string){
-        List<Action> actions = new ArrayList<>();
+    public static List<Action<String>> toMessage(String string){
+        List<Action<String>> actions = new ArrayList<>();
         String[] actionArr = string.split(";");
 
         for(String actionString: actionArr){

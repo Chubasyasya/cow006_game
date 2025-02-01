@@ -20,9 +20,8 @@ public class Game{
     }
 
 
-    public void beginGame() {
-
-    }
+//    public void beginGame() {
+//    }
 
     public void getCards(List<String> cardsId) {
         List<Card> cards = findCardsById(cardsId);
@@ -71,5 +70,10 @@ public class Game{
 
     public void roundCompleted(int penaltyPoints) {
         roomController.roundCompleted(penaltyPoints);
+    }
+
+    public void gameResult(int result) {
+        roomController.showResult(result);
+
     }
 }

@@ -13,7 +13,8 @@ public enum Commands {
     SELECT_ROW_TO_PICK(9),
     PUT_CARD_ON_TABLE(10),
     UPDATE_PLAYING_FIELD(11),
-    ROUND_COMPLETED(12);
+    ROUND_COMPLETED(12),
+    GAME_RESULT(13); // Название команды : занчение(0 - поражение, 1 - победа, 2 - ни выиграл и не проиграл)
 
     private final int code;
 

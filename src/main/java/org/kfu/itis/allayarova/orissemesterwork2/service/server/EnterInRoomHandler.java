@@ -1,6 +1,7 @@
 package org.kfu.itis.allayarova.orissemesterwork2.service.server;
 
 import org.kfu.itis.allayarova.orissemesterwork2.ClientHandler;
+import org.kfu.itis.allayarova.orissemesterwork2.models.GameState;
 import org.kfu.itis.allayarova.orissemesterwork2.models.Room;
 import org.kfu.itis.allayarova.orissemesterwork2.service.Commands;
 
@@ -17,6 +18,8 @@ public class EnterInRoomHandler implements CommandHandler<String> {
         int beginGameFlag = 0;
         if(room.getSize() == room.getClients().size()){
             beginGameFlag = 1;
+            room.setGameState(new GameState(room));
+            room.getGameState().setPlayersRangedByPoints(room.getClients());
         }
         int result = enterInRoom ? roomId : -1;
         return Commands.ENTER_IN_ROOM.getCode() + ":" + result+" "+beginGameFlag;
