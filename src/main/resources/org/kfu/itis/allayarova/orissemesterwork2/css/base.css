@@ -8,3 +8,11 @@
     -fx-border-color: #f4eafd;
     -fx-border-width: 2px;
 }
+
+.card-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+}

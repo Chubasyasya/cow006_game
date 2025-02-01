@@ -58,18 +58,6 @@ public class ClientHandler implements Runnable {
         out.flush();
     }
 
-    public void sendingForRoom(String message) {
-        for (ClientHandler client : room.getClients()) {
-            if (client != this) {
-                try {
-                    client.sendMessage(message);
-                } catch (Exception e) {
-                    System.err.println("Failed to send message to client: " + e.getMessage());
-                }
-            }
-        }
-    }
-
     public Room getRoom() {
         return room;
     }
@@ -90,10 +78,6 @@ public class ClientHandler implements Runnable {
         } catch (IOException e) {
             System.err.println("Failed to close resources: " + e.getMessage());
         }
-    }
-
-    public BufferedReader getIn() {
-        return in;
     }
 
     public Player getPlayer() {

@@ -65,28 +65,26 @@ public class RoomController {
             cardsContainer.getChildren().clear();
 
             for (Card card : cards) {
-                String imagePath = getClass().getResource(card.getImagePath()).toExternalForm();
-                Image cardImage = new Image(imagePath);
-                if (cardImage.isError()) {
-                    System.out.println("Ошибка загрузки изображения: " + imagePath);
-                    cardImage.getException().printStackTrace();
-                }
-
-                ImageView cardImageView = new ImageView(cardImage);
-
-                cardImageView.setFitHeight(150);
-                cardImageView.setFitWidth(100);
+                ImageView cardImageView = getCardImageView(card);
 
                 Button cardButton = new Button();
                 cardButton.setGraphic(cardImageView);
+                cardButton.getStyleClass().add("card-button");
                 cardButton.setStyle("-fx-background-color: transparent;");
-                cardButton.setPadding(Insets.EMPTY);
-                cardButton.setMinSize(100, 150);
-                cardButton.setMaxSize(100, 150);
+                cardButton.setMinSize(110, 160);
+                cardButton.setMaxSize(110, 160);
 
                 cardButton.setOnAction(event -> {
                     selectedCard = card;
+
+                    if (selectedCardButton != null) {
+                        selectedCardButton.setStyle("-fx-effect: transparent;");
+                    }
+
                     selectedCardButton = cardButton;
+
+                    cardButton.setStyle("-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.7), 10, 0, 0, 0);");
+
 
                     if(!isCardSent) sendButton.setVisible(true);
                     if(!isCardSent) sendButton.setDisable(false);
@@ -104,6 +102,7 @@ public class RoomController {
             sendButton.setDisable(true);
             selectedCardButton.setDisable(true);
             sendButton.setVisible(false);
+            selectedCardButton.setStyle("-fx-effect: transparent;");
 
             game.sendCardToServer(selectedCard);
             selectedCard = null;
@@ -147,14 +146,15 @@ public class RoomController {
                         gridPane.add(getCardImageView(card), col, row);
                     } else {
                         ImageView emptySlot = new ImageView();
-                        emptySlot.setFitHeight(150);
                         emptySlot.setFitWidth(100);
-                        emptySlot.setStyle("-fx-border-color: black; -fx-border-width: 6px;");
+                        emptySlot.setFitHeight(150);
+                        emptySlot.setStyle("-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: transparent;");
 
                         gridPane.add(emptySlot, col, row);
                     }
                 }
             }
+
         });
     }
 
@@ -176,6 +176,11 @@ public class RoomController {
             for (int i = 0; i < rowCount; i++) {
                 int rowIndex = i;
                 Button selectRowButton = new Button("Выбрать ряд " + (rowIndex + 1));
+
+                selectRowButton.setMinSize(150, 50);
+                selectRowButton.setMaxSize(150, 50);
+                selectRowButton.setPrefSize(150, 50);
+
                 selectRowButton.setOnAction(event -> selectRowToPick(rowIndex));
 
                 selectRowButton.setUserData(rowIndex);

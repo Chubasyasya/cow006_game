@@ -7,7 +7,7 @@
 
 <BorderPane fx:id="borderPane" prefHeight="800.0" prefWidth="1150.0" style="-fx-background-color: #736081;" stylesheets="@css/room.css, @css/base.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.kfu.itis.allayarova.orissemesterwork2.controllers.RoomController">
     <center>
-      <GridPane fx:id="gridPane" focusTraversable="true" hgap="5.0" maxHeight="600.0" maxWidth="776.0" minHeight="400.0" minWidth="300.0" prefHeight="549.0" prefWidth="776.0" vgap="5.0" BorderPane.alignment="CENTER">
+      <GridPane fx:id="gridPane" alignment="TOP_RIGHT" focusTraversable="true" hgap="5.0" maxHeight="600.0" maxWidth="776.0" minHeight="400.0" minWidth="300.0" prefHeight="549.0" prefWidth="776.0" vgap="5.0" BorderPane.alignment="TOP_RIGHT">
           <columnConstraints>
               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
