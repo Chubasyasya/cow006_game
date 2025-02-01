@@ -23,6 +23,15 @@ public enum Commands {
         this.code = code;
     }
 
+    public static Commands getNameByCode(int code) {
+        for (Commands command : Commands.values()) {
+            if (command.code == code) {
+                return command;
+            }
+        }
+        return null;
+    }
+
     public int getCode() {
         return code;
     }

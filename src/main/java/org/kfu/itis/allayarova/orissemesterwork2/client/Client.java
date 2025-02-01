@@ -2,7 +2,8 @@ package org.kfu.itis.allayarova.orissemesterwork2.client;
 
 import org.kfu.itis.allayarova.orissemesterwork2.client.messageListener.EventDispatcher;
 import org.kfu.itis.allayarova.orissemesterwork2.client.messageListener.EventListener;
-import org.kfu.itis.allayarova.orissemesterwork2.client.messageListener.NetworkEvent;
+import org.kfu.itis.allayarova.orissemesterwork2.models.Message;
+import org.kfu.itis.allayarova.orissemesterwork2.service.CommandConverter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,11 +38,15 @@ public class Client {
             try {
                 String message;
                 while ((message = in.readLine()) != null) {
-                    for (EventListener d :dispatcher.getListeners()){
-                        System.out.println(d.toString());
+                    String[] strings = message.split(";");
+                    for(String string: strings) {
+                        for (EventListener d : dispatcher.getListeners()) {
+                            System.out.println(d.toString());
+                        }
+                        System.out.println("Client broke string to message");
+                        dispatcher.dispatch(CommandConverter.stringToMessage(string));
+                        System.out.println("Message received: " + message);
                     }
-                    dispatcher.dispatch(new NetworkEvent("response", message));
-                    System.out.println("Message received: " + message);
                 }
             } catch (IOException e) {
                 System.err.println("Error while reading messages: " + e.getMessage());
@@ -51,9 +56,11 @@ public class Client {
         }).start();
     }
 
-    public void sendMessage(String message) {
+    public void sendMessage(Message message) {
+        String string= CommandConverter.messageToString(message);
+
         synchronized (out) {
-            out.println(message);
+            out.println(string);
             out.flush();
         }
     }

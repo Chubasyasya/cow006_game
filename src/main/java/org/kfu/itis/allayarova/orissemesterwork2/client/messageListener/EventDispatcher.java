@@ -1,5 +1,7 @@
 package org.kfu.itis.allayarova.orissemesterwork2.client.messageListener;
 
+import org.kfu.itis.allayarova.orissemesterwork2.models.Message;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,9 @@ public class EventDispatcher {
         listeners.remove(listener);
     }
 
-    public void dispatch(NetworkEvent event) {
+    public void dispatch(Message message) {
         for (EventListener listener : listeners) {
-            listener.onEvent(event);
+            listener.onEvent(message);
         }
     }
 

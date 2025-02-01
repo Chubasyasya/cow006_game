@@ -50,7 +50,6 @@ public class RoomController {
     private Card selectedCard = null;
     private Button selectedCardButton = null;
     private boolean isCardSent = false;
-    private MenuController menuController;
 
     @FXML
     public void initialize(){

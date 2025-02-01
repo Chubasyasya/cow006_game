@@ -17,12 +17,10 @@ module org.kfu.itis.allayarova.orissemesterwork2 {
     opens org.kfu.itis.allayarova.orissemesterwork2.controllers to javafx.fxml;
     exports org.kfu.itis.allayarova.orissemesterwork2.service;
     opens org.kfu.itis.allayarova.orissemesterwork2.service to javafx.fxml;
-    exports org.kfu.itis.allayarova.orissemesterwork2.service.server;
-    opens org.kfu.itis.allayarova.orissemesterwork2.service.server to javafx.fxml;
-    exports org.kfu.itis.allayarova.orissemesterwork2.client.messageListener;
-    opens org.kfu.itis.allayarova.orissemesterwork2.client.messageListener to javafx.fxml;
     exports org.kfu.itis.allayarova.orissemesterwork2.server;
     opens org.kfu.itis.allayarova.orissemesterwork2.server to javafx.fxml;
+    exports org.kfu.itis.allayarova.orissemesterwork2.client.messageListener;
+    opens org.kfu.itis.allayarova.orissemesterwork2.client.messageListener to javafx.fxml;
     exports org.kfu.itis.allayarova.orissemesterwork2.server.serverHandlers;
     opens org.kfu.itis.allayarova.orissemesterwork2.server.serverHandlers to javafx.fxml;
 }
