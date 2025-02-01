@@ -1,11 +1,10 @@
-package org.kfu.itis.allayarova.orissemesterwork2;
+package org.kfu.itis.allayarova.orissemesterwork2.server;
 
-import org.kfu.itis.allayarova.orissemesterwork2.models.Room;
 import org.kfu.itis.allayarova.orissemesterwork2.models.Action;
 import org.kfu.itis.allayarova.orissemesterwork2.models.Player;
 import org.kfu.itis.allayarova.orissemesterwork2.service.CommandConverter;
-import org.kfu.itis.allayarova.orissemesterwork2.service.server.CommandHandler;
-import org.kfu.itis.allayarova.orissemesterwork2.service.server.CommandHandlerFactory;
+import org.kfu.itis.allayarova.orissemesterwork2.server.serverHandlers.CommandHandler;
+import org.kfu.itis.allayarova.orissemesterwork2.server.serverHandlers.CommandHandlerFactory;
 
 import java.io.*;
 import java.net.Socket;

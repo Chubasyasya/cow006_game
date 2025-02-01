@@ -1,8 +1,7 @@
-package org.kfu.itis.allayarova.orissemesterwork2.models;
+package org.kfu.itis.allayarova.orissemesterwork2.server;
 
-import org.kfu.itis.allayarova.orissemesterwork2.ClientHandler;
+import org.kfu.itis.allayarova.orissemesterwork2.models.Player;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

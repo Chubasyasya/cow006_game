@@ -1,6 +1,6 @@
 package org.kfu.itis.allayarova.orissemesterwork2.models;
 
-import org.kfu.itis.allayarova.orissemesterwork2.ClientHandler;
+import org.kfu.itis.allayarova.orissemesterwork2.server.ClientHandler;
 
 import java.util.List;
 

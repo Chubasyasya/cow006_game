@@ -1,14 +1,11 @@
-package org.kfu.itis.allayarova.orissemesterwork2.service.server;
+package org.kfu.itis.allayarova.orissemesterwork2.server.serverHandlers;
 
-import org.kfu.itis.allayarova.orissemesterwork2.ClientHandler;
-import org.kfu.itis.allayarova.orissemesterwork2.models.GameState;
-import org.kfu.itis.allayarova.orissemesterwork2.models.Room;
+import org.kfu.itis.allayarova.orissemesterwork2.server.ClientHandler;
+import org.kfu.itis.allayarova.orissemesterwork2.server.GameState;
+import org.kfu.itis.allayarova.orissemesterwork2.server.Room;
 import org.kfu.itis.allayarova.orissemesterwork2.service.Commands;
-import org.kfu.itis.allayarova.orissemesterwork2.service.server.CommandHandler;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class SelectCardHandler implements CommandHandler<String> {
 

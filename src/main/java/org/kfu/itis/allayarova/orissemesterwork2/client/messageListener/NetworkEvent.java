@@ -1,4 +1,4 @@
-package org.kfu.itis.allayarova.orissemesterwork2.service.server.messageListener;
+package org.kfu.itis.allayarova.orissemesterwork2.client.messageListener;
 
 public class NetworkEvent {
     private final String type;

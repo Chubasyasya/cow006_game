@@ -45,8 +45,6 @@ public class MenuController extends BaseController{
             Game game = new Game(roomController, menu.getMenuNet());
             roomController.setGame(game);
 
-            roomController.setRoomNumber(roomNumber);
-
             Stage stage = (Stage) buttonContainer.getScene().getWindow();
             stage.setScene(new Scene(root));
 

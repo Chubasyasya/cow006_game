@@ -2,8 +2,8 @@ package org.kfu.itis.allayarova.orissemesterwork2.service;
 
 import org.kfu.itis.allayarova.orissemesterwork2.client.Client;
 import org.kfu.itis.allayarova.orissemesterwork2.models.Action;
-import org.kfu.itis.allayarova.orissemesterwork2.service.server.messageListener.EventListener;
-import org.kfu.itis.allayarova.orissemesterwork2.service.server.messageListener.NetworkEvent;
+import org.kfu.itis.allayarova.orissemesterwork2.client.messageListener.EventListener;
+import org.kfu.itis.allayarova.orissemesterwork2.client.messageListener.NetworkEvent;
 
 import java.util.List;
 
@@ -27,9 +27,6 @@ public class GameNet implements EventListener {
         List<Action<String>> actions = CommandConverter.toMessage(event.getData());
         for(Action<String> action: actions) {
             int commandCode = action.getCommand().getCode();
-//            if (commandCode == Commands.START_GAME.getCode()) {
-//                game.beginGame();
-//            } else
             if (commandCode == Commands.GET_CARDS.getCode()) {
                 if(action.getValue().getFirst().equals("-1")){
                     client.sendMessage(Commands.GET_CARDS.getCode()+":"+10);

@@ -2,8 +2,8 @@ package org.kfu.itis.allayarova.orissemesterwork2.service;
 
 import org.kfu.itis.allayarova.orissemesterwork2.client.Client;
 import org.kfu.itis.allayarova.orissemesterwork2.models.Action;
-import org.kfu.itis.allayarova.orissemesterwork2.service.server.messageListener.EventListener;
-import org.kfu.itis.allayarova.orissemesterwork2.service.server.messageListener.NetworkEvent;
+import org.kfu.itis.allayarova.orissemesterwork2.client.messageListener.EventListener;
+import org.kfu.itis.allayarova.orissemesterwork2.client.messageListener.NetworkEvent;
 
 import java.util.List;
 import java.util.stream.Collectors;

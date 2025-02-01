@@ -1,6 +1,7 @@
-package org.kfu.itis.allayarova.orissemesterwork2;
+package org.kfu.itis.allayarova.orissemesterwork2.server;
 
-import org.kfu.itis.allayarova.orissemesterwork2.models.Room;
+import org.kfu.itis.allayarova.orissemesterwork2.server.ClientHandler;
+import org.kfu.itis.allayarova.orissemesterwork2.server.Room;
 import org.kfu.itis.allayarova.orissemesterwork2.service.Commands;
 
 import java.io.BufferedWriter;

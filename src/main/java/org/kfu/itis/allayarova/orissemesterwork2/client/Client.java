@@ -1,9 +1,8 @@
 package org.kfu.itis.allayarova.orissemesterwork2.client;
 
-import org.kfu.itis.allayarova.orissemesterwork2.service.*;
-import org.kfu.itis.allayarova.orissemesterwork2.service.server.messageListener.EventDispatcher;
-import org.kfu.itis.allayarova.orissemesterwork2.service.server.messageListener.EventListener;
-import org.kfu.itis.allayarova.orissemesterwork2.service.server.messageListener.NetworkEvent;
+import org.kfu.itis.allayarova.orissemesterwork2.client.messageListener.EventDispatcher;
+import org.kfu.itis.allayarova.orissemesterwork2.client.messageListener.EventListener;
+import org.kfu.itis.allayarova.orissemesterwork2.client.messageListener.NetworkEvent;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,7 +37,6 @@ public class Client {
             try {
                 String message;
                 while ((message = in.readLine()) != null) {
-                    System.out.println("Показываю слушателей");
                     for (EventListener d :dispatcher.getListeners()){
                         System.out.println(d.toString());
                     }

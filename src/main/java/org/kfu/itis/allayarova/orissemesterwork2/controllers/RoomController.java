@@ -47,7 +47,6 @@ public class RoomController {
 
     @FXML
     private Text points = new Text("0");
-    private boolean isDeckEmpty = false;
     private Card selectedCard = null;
     private Button selectedCardButton = null;
     private boolean isCardSent = false;
@@ -57,14 +56,6 @@ public class RoomController {
     public void initialize(){
         Image deckImage = new Image(getClass().getResource("/org/kfu/itis/allayarova/orissemesterwork2/images/card_back2.png").toExternalForm());
     }
-
-    public void setDeckEmpty(boolean isDeckEmpty) {
-        this.isDeckEmpty = isDeckEmpty;
-    }
-
-    public void setRoomNumber(int roomNumber) {
-    }
-
 
     public void setGame(Game game) {
         this.game = game;
@@ -220,16 +211,12 @@ public class RoomController {
     public void showResult(int result) {
         Platform.runLater(() -> {
             String message;
-            String title;
             if (result == 1) {
                 message = "Ура! Ты выиграл!";
-                title = "Победа!";
             } else if (result == 0) {
                 message = "Ты проиграл! Попробуй снова!";
-                title = "Проигрыш!";
             } else {
                 message = "Ты не проиграл и не выиграл!";
-                title = "Ты чилл гай!";
             }
 
             try {
@@ -245,19 +232,5 @@ public class RoomController {
                 throw new RuntimeException(e);
             }
         });
-    }
-
-    public void switchToMenu() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/kfu/itis/allayarova/orissemesterwork2/menuScene.fxml"));
-            Parent root = loader.load();
-
-
-            Stage stage = (Stage) borderPane.getScene().getWindow();
-            stage.setScene(new Scene(root));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

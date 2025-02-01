@@ -1,7 +1,6 @@
-package org.kfu.itis.allayarova.orissemesterwork2.service.server;
+package org.kfu.itis.allayarova.orissemesterwork2.server.serverHandlers;
 
-import org.kfu.itis.allayarova.orissemesterwork2.ClientHandler;
-import org.kfu.itis.allayarova.orissemesterwork2.models.Card;
+import org.kfu.itis.allayarova.orissemesterwork2.server.ClientHandler;
 import org.kfu.itis.allayarova.orissemesterwork2.service.Commands;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.kfu.itis.allayarova.orissemesterwork2.service.server;
+package org.kfu.itis.allayarova.orissemesterwork2.server.serverHandlers;
 
 import org.kfu.itis.allayarova.orissemesterwork2.service.Commands;
 
