@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class GameState {
+    private Room room;
     private Card[][] playingField;
     private Card[] lastInRows;
     private List<Card> deck;
@@ -16,6 +17,15 @@ public class GameState {
     private List<Card> sortedChosenCards;
     private int moveCounter;
 
+    public GameState(Room room) {
+        this.room = room;
+        this.deck = new ArrayList<>(Deck.getCards());
+        Collections.shuffle(deck);
+        moveCounter = 0;
+
+        this.usedCards = new ArrayList<>();
+    }
+
     public synchronized Card getCard() {
         Card card = deck.getFirst();
         clientAndSelectedCards = new HashMap<>();
@@ -24,33 +34,8 @@ public class GameState {
         return card;
     }
 
-    public GameState() {
-        this.deck = Deck.getCards();
-        Collections.shuffle(deck);
-        moveCounter = 0;
-
-        this.usedCards = new ArrayList<>();
-    }
-
-    public void playingFieldInit(){
-        playingField = new Card[4][6];
-        lastInRows = new Card[4];
-    }
-
-    public void updateMoveCounter(){
-        moveCounter++;
-    }
-
     public int getMoveCounter() {
         return moveCounter;
-    }
-
-    public void setMoveCounter(int moveCounter) {
-        this.moveCounter = moveCounter;
-    }
-
-    public void setCardOnPlayingField(int indexX, int indexY, Card card) {
-        playingField[indexX][indexY] = card;
     }
 
     private Card getUsedCardById(int id){
@@ -62,32 +47,65 @@ public class GameState {
         return null;
     }
 
-    public Map<Card, ClientHandler> getClientAndSelectedCards() {
-        return clientAndSelectedCards;
+    public ClientHandler getNextClientHandlerByCurrentCardId(int cardId) {
+        for(int i = 0; i < sortedChosenCards.size(); i++){
+            if(sortedChosenCards.get(i).getNumber() > cardId){
+                return clientAndSelectedCards.get(sortedChosenCards.get(i));
+            }
+        }
+        return null;
+    }
+
+    public int getNextCardId(int currentCardId){
+        for(int i = 0; i < sortedChosenCards.size();i++){
+            if(currentCardId < sortedChosenCards.get(i).getNumber()){
+                return sortedChosenCards.get(i).getNumber();
+            }
+        }
+        return -1;
+    }
+
+    public String getPlayingFieldString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (Card[] row : playingField) {
+            for (Card card : row) {
+                sb.append(card != null ? card.getNumber() : -1).append(" ");
+            }
+        }
+
+        return sb.toString();
     }
 
     public void setClientAndSelectedCards(Map<Card, ClientHandler> clientAndSelectedCards) {
         this.clientAndSelectedCards = clientAndSelectedCards;
     }
 
-    public void rangingCards() {
-        List<Card> sortedCards = new ArrayList<>(clientAndSelectedCards.keySet());
-        Collections.sort(sortedCards);
-        sortedChosenCards = sortedCards;
+    public void setMoveCounter(int moveCounter) {
+        this.moveCounter = moveCounter;
     }
 
-    private void nullRow(int minDiffRow) {
-        for(int i = 0; i < 6; i++){
-            playingField[minDiffRow][i]=null;
-        }
+    public void setCardOnPlayingField(int indexX, int indexY, Card card) {
+        playingField[indexX][indexY] = card;
     }
-
     public void setLastInRows(int i, Card card) {
         lastInRows[i] = card;
     }
 
-    public List<Card> getSortedChosenCards() {
-        return sortedChosenCards;
+    public void playingFieldInit(){
+        playingField = new Card[4][6];
+        lastInRows = new Card[4];
+    }
+
+    public void updateMoveCounter(){
+        moveCounter++;
+    }
+
+
+    public void rangingCards() {
+        List<Card> sortedCards = new ArrayList<>(clientAndSelectedCards.keySet());
+        Collections.sort(sortedCards);
+        sortedChosenCards = sortedCards;
     }
 
     public Commands putCardOnTable(int cardId, Player player) {
@@ -129,34 +147,10 @@ public class GameState {
         }
     }
 
-    public ClientHandler getNextClientHandlerByCurrentCardId(int cardId) {
-        for(int i = 0; i < sortedChosenCards.size(); i++){
-            if(sortedChosenCards.get(i).getNumber() > cardId){
-                return clientAndSelectedCards.get(sortedChosenCards.get(i));
-            }
+    private void nullRow(int minDiffRow) {
+        for(int i = 0; i < 6; i++){
+            playingField[minDiffRow][i]=null;
         }
-        return null;
-    }
-
-    public int getNextCardId(int currentCardId){
-        for(int i = 0; i < sortedChosenCards.size();i++){
-            if(currentCardId < sortedChosenCards.get(i).getNumber()){
-                return sortedChosenCards.get(i).getNumber();
-            }
-        }
-        return -1;
-    }
-
-    public String getPlayingFieldString() {
-        StringBuilder sb = new StringBuilder();
-
-        for (Card[] row : playingField) {
-            for (Card card : row) {
-                sb.append(card != null ? card.getNumber() : -1).append(" ");
-            }
-        }
-
-        return sb.toString();
     }
 
     public void pickRowCards(int rowNumber, ClientHandler clientHandler) {
@@ -203,4 +197,11 @@ public class GameState {
         return clientAndSelectedCards.size() == size;
     }
 
+    public void updateGameState() {
+        this.deck = new ArrayList<>(Deck.getCards());
+        usedCards.clear();
+        clientAndSelectedCards.clear();
+        sortedChosenCards.clear();
+        moveCounter = 0;
+    }
 }

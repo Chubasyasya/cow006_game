@@ -15,7 +15,7 @@ public class Room{
     public Room(int size, Set<ClientHandler> clients) {
         this.size = size;
         this.clients = clients;
-        gameState = new GameState();
+        gameState = new GameState(this);
     }
 
     public Room() {

@@ -30,8 +30,10 @@ public class PutCardOnTableHandler implements CommandHandler<String>{
         }else if(c.equals(Commands.ROUND_COMPLETED)){
             room.sendPenaltyPoints(Commands.ROUND_COMPLETED.getCode()+":");
             if(gameState.getMoveCounter()==10){
-                gameState.setMoveCounter(0);
-                room.broadcastMessage(Commands.GET_CARDS.getCode()+":"+-1);
+
+                gameState.updateGameState();
+                StartGameHandler nextHandler = (StartGameHandler) CommandHandlerFactory.getHandler(Commands.START_GAME);
+                return nextHandler.handle(clientHandler, null);
             }
         }
         return Commands.ROUND_COMPLETED.getCode()+":"+player.getPenaltyPoints();

@@ -23,8 +23,6 @@ public class SelectCardHandler implements CommandHandler<String> {
         System.out.println("Количество игроков сдавших карты "+room.getClients().size());
 
         if (!gameState.allPlayersSelectedCards(room.getClients().size())) {
-            //TODO НЕПРАВИЛЬНО РАБОТАЕТ СХОАНЕНИЕ КАРТ ПОЛОЖИЛА ДВЕ А ВСЕ РАВНО ДВА РАЗА ДЕЛАЕМ НИЧЕГО
-            System.out.println("Делаем ничего 1");
             return Commands.DO_NOTHING.getCode() + ":" + 1;
         }else {
             gameState.updateMoveCounter();
@@ -35,7 +33,6 @@ public class SelectCardHandler implements CommandHandler<String> {
                 nextClientHandler.sendMessage(Commands.PUT_CARD_ON_TABLE.getCode() + ":" + gameState.getNextCardId(0));
             }
         }
-        System.out.println("Делаю ничего 2");
         return Commands.DO_NOTHING.getCode() + ":" + 1;
     }
 
