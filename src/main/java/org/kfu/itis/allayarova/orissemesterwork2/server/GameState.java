@@ -31,7 +31,7 @@ public class GameState {
         this.usedCards = new ArrayList<>();
     }
 
-    public synchronized Card getCard() {
+    public Card getCard() {
         Card card = deck.getFirst();
         clientAndSelectedCards = new HashMap<>();
         usedCards.add(card);
@@ -187,14 +187,14 @@ public class GameState {
         return null;
     }
 
-    public synchronized void addClientAndSelectedCards(ClientHandler clientHandler, int cardId, int size) {
+    public void addClientAndSelectedCards(ClientHandler clientHandler, int cardId, int size) {
         clientAndSelectedCards.put(getUsedCardById(cardId), clientHandler);
 
-        if (allPlayersSelectedCards(size)) {
-            synchronized (this) {
-                notifyAll();
-            }
-        }
+//        if (allPlayersSelectedCards(size)) {
+//            synchronized (this) {
+//                notifyAll();
+//            }
+//        }
     }
 
     public boolean allPlayersSelectedCards(int size) {

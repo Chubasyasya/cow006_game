@@ -53,7 +53,7 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    public synchronized void sendMessage(String message) {
+    public void sendMessage(String message) {
         out.println(message);
         out.flush();
     }

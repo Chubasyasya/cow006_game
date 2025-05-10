@@ -78,12 +78,12 @@ public class RoomController {
                     selectedCard = card;
 
                     if (selectedCardButton != null) {
-                        selectedCardButton.setStyle("-fx-effect: transparent;");
+                        selectedCardButton.setStyle("-fx-effect: none;");
                     }
 
                     selectedCardButton = cardButton;
 
-                    cardButton.setStyle("-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.7), 10, 0, 0, 0);");
+                    cardButton.setStyle("-fx-effect: dropshadow(gaussian, white, 10, 0, 0, 0);");
 
 
                     if(!isCardSent) sendButton.setVisible(true);
@@ -102,7 +102,7 @@ public class RoomController {
             sendButton.setDisable(true);
             selectedCardButton.setDisable(true);
             sendButton.setVisible(false);
-            selectedCardButton.setStyle("-fx-effect: transparent;");
+            selectedCardButton.setStyle("-fx-effect: none;");
 
             game.sendCardToServer(selectedCard);
             selectedCard = null;

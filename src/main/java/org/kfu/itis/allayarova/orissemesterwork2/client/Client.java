@@ -59,10 +59,8 @@ public class Client {
     public void sendMessage(Message message) {
         String string= CommandConverter.messageToString(message);
 
-        synchronized (out) {
-            out.println(string);
-            out.flush();
-        }
+        out.println(string);
+        out.flush();
     }
 
     private void closeResources() {
